@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "aula16",
-=======
-  "name": "aula15",
->>>>>>> 6aa9b3875be7b277f07f80dd2d8e0cb1e2572a8a
+  "name": "aula17",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -19,10 +15,12 @@
     "connect-mongo": "^4.6.0",
     "core-js": "^3.25.5",
     "css-loader": "^6.7.1",
+    "csurf": "^1.11.0",
     "dotenv": "^16.0.3",
-    "ejs": "^3.1.6",
+    "ejs": "^3.1.8",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "helmet": "^6.0.0",
     "mongoose": "^6.6.5",
     "regenerator-runtime": "^0.13.9",
     "style-loader": "^3.3.1"
