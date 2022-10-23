@@ -18,21 +18,21 @@ function Contato(body) {
     this.contato = null;
 }
 
-Contato.buscaPorId = async function(id){
+Contato.buscaPorId = async function (id) {
     if (typeof id !== 'string') return;
     const user = await ContatoModel.findById(id);
     return user;
-}; 
+};
 //registra o contato no banco de dados utilizando uma função assincrona para esperar a resposta do banco de dados
-Contato.prototype.register = async function() {
+Contato.prototype.register = async function () {
     this.valida();
-    if(this.errors.length > 0) return;
+    if (this.errors.length > 0) return;
     this.contato = await ContatoModel.create(this.body);
 };
 //Metódo que valida os campos do formulário
-Contato.prototype.valida = function() {
+Contato.prototype.valida = function () {
     this.cleanUp();
-    
+
     //validação
     //o email precisa ser válido
     if (this.body.email && !validator.isEmail(this.body.email)) this.errors.push('E-mail inválido');
@@ -42,13 +42,13 @@ Contato.prototype.valida = function() {
     }
 }
 //Metódo para se o campo não for uma string, converte em uma string vazia
-Contato.prototype.cleanUp = function() {
+Contato.prototype.cleanUp = function () {
     for (const key in this.body) {
         if (typeof this.body[key] !== 'string') {
             this.body[key] = '';
         }
     }
-//Seleciona os dados inseridos no body
+    //Seleciona os dados inseridos no body
     this.body = {
         nome: this.body.nome,
         sobrenome: this.body.sobrenome,
@@ -57,11 +57,29 @@ Contato.prototype.cleanUp = function() {
     };
 };
 
-Contato.prototype.edit = async function(id) {
-    if(typeof id !== 'string') return;
+Contato.prototype.edit = async function (id) {
+    if (typeof id !== 'string') return;
     this.valida();
-    if(this.errors.length > 0) return;
+    if (this.errors.length > 0) return;
     this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, { new: true });
+};
+
+//metodos estaticos
+Contato.buscaPorId = async function (id) {
+    if (typeof id !== 'string') return;
+    const contato = await ContatoModel.findById(id);
+    return contato;
+};
+Contato.buscaContatos = async function () {
+    const contatos = await ContatoModel.find()
+        .sort({ criadoEm: -1 });
+    return contatos;
+};
+
+Contato.delete = async function (id) {
+    if (typeof id !== 'string') return;
+    const contato = await ContatoModel.findOneAndDelete();
+    return contato;
 };
 
 module.exports = Contato;
